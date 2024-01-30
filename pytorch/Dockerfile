@@ -42,8 +42,35 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 # start jupyter lab
 # CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
 
-# Install Jupyter Notebook
-RUN pip install jupyterlab numpy torch pandas matplotlib seaborn scikit-learn kaggle jedi ipython beautifulsoup4 bokeh cloudpickle cython protobuf patsy scipy sqlalchemy statsmodels ipywidgets jupyterlab-git
+# Install Python Package
+RUN pip install \
+    numpy \
+    torch \
+    pandas \
+    matplotlib \
+    seaborn \
+    scikit-learn \
+    beautifulsoup4 \
+    bokeh \
+    cloudpickle \
+    cython \
+    protobuf \
+    patsy \
+    scipy \
+    sqlalchemy \
+    statsmodels 
+
+RUN pip install \
+    jupyterlab \
+    jedi \
+    kaggle \
+    ipython \
+    ipywidgets \
+    jupyterlab-git \
+    jupyterlab_tabnine \
+    jupyterlab-drawio
+
+
 
 # Set up an environment variable for the Jupyter password
 ENV JUPYTER_PASSWORD=""
