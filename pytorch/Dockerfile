@@ -67,7 +67,7 @@ RUN pip install \
     ipython \
     ipywidgets \
     jupyterlab-git \
-    jupyterlab_tabnine \
+    jupyterlab_tabnine 
 
 
 
