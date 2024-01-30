@@ -1,20 +1,49 @@
-FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-devel
+# FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-devel
 
-RUN apt-get update --yes && \
-    apt-get install --yes --no-install-recommends \
-    # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
-    build-essential \
-    # for latex labels
-    cm-super \
-    dvipng \
-    # for matplotlib anim
-    ffmpeg && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-# Set the working directory
+# RUN apt-get update --yes && \
+#     apt-get install --yes --no-install-recommends \
+#     # for cython: https://cython.readthedocs.io/en/latest/src/quickstart/install.html
+#     build-essential \
+#     # for latex labels
+#     cm-super \
+#     dvipng \
+#     git \
+#     # for matplotlib anim
+#     ffmpeg && \
+#     apt-get clean && rm -rf /var/lib/apt/lists/*
+# # Set the working directory
+# WORKDIR /workspace
+
+FROM nvidia/cuda:12.1.0-base-ubuntu22.04
+
+# Set bash as the default shell
+ENV SHELL=/bin/bash
+
+# Create a working directory
 WORKDIR /workspace
 
+# Build with some basic utilities
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    build-essential \
+    apt-utils \
+    vim \
+    git
+
+# alias python='python3'
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# build with some basic python packages
+RUN pip install \
+    numpy \
+    torch \
+    jupyterlab
+
+# start jupyter lab
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
+
 # Install Jupyter Notebook
-RUN pip install notebook jupyterlab numpy pandas matplotlib seaborn scikit-learn kaggle jedi ipython beautifulsoup4 bokeh cloudpickle cython protobuf patsy scipy sqlalchemy statsmodels ipywidgets jupyterlab-git
+RUN pip install jupyterlab numpy torch pandas matplotlib seaborn scikit-learn kaggle jedi ipython beautifulsoup4 bokeh cloudpickle cython protobuf patsy scipy sqlalchemy statsmodels ipywidgets jupyterlab-git
 
 # Set up an environment variable for the Jupyter password
 ENV JUPYTER_PASSWORD=""
