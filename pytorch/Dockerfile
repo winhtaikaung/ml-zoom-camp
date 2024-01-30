@@ -68,7 +68,6 @@ RUN pip install \
     ipywidgets \
     jupyterlab-git \
     jupyterlab_tabnine \
-    jupyterlab-drawio
 
 
 
@@ -82,6 +81,8 @@ RUN whoami
 
 RUN mkdir -p /root/.jupyter
 RUN mkdir -p /root/.ipython
+
+RUN jupyter labextension install @krassowski/jupyterlab_go_to_definition
 
 ENTRYPOINT ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser","--NotebookApp.tonotebook_dir=/workspace"]
 
