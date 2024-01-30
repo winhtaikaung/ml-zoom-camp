@@ -34,13 +34,13 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # build with some basic python packages
-RUN pip install \
-    numpy \
-    torch \
-    jupyterlab
+# RUN pip install \
+#     numpy \
+#     torch \
+#     jupyterlab
 
 # start jupyter lab
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
+# CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--allow-root", "--no-browser"]
 
 # Install Jupyter Notebook
 RUN pip install jupyterlab numpy torch pandas matplotlib seaborn scikit-learn kaggle jedi ipython beautifulsoup4 bokeh cloudpickle cython protobuf patsy scipy sqlalchemy statsmodels ipywidgets jupyterlab-git
